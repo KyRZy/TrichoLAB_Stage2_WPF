@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Drawing;
+using System.IO;
 
 namespace TrichoLABComputerVisionWPF
 {
@@ -21,6 +23,7 @@ namespace TrichoLABComputerVisionWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ImageFilters ImageFilters = new ImageFilters();
         public MainWindow()
         {
             InitializeComponent();
@@ -33,6 +36,27 @@ namespace TrichoLABComputerVisionWPF
             {
                 Uri fileUri = new Uri(openFileDialog.FileName);
                 imageOriginal.Source = new BitmapImage(fileUri);
+
+                ImageFilters.LoadImage(new Bitmap(openFileDialog.FileName));
+                ImageFilters.ApplyBradleysFilter();
+
+                imageBradleyFilter.Source = BitmapToImageSource(ImageFilters.GetImage());
+            }
+        }
+
+        BitmapImage BitmapToImageSource(Bitmap bitmap)
+        {
+            using (MemoryStream memory = new MemoryStream())
+            {
+                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+                memory.Position = 0;
+                BitmapImage bitmapimage = new BitmapImage();
+                bitmapimage.BeginInit();
+                bitmapimage.StreamSource = memory;
+                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapimage.EndInit();
+
+                return bitmapimage;
             }
         }
     }
