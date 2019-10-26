@@ -33,14 +33,11 @@ namespace TrichoLABComputerVisionWPF
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
-            {
-                Uri fileUri = new Uri(openFileDialog.FileName);
-                imageOriginal.Source = new BitmapImage(fileUri);
-
+            {               
                 ImageFilters.LoadImage(new Bitmap(openFileDialog.FileName));
-                ImageFilters.ApplyBradleysFilter();
+                imageOriginal.Source = BitmapToImageSource(ImageFilters.GetGrayScaledImage());
 
-                imageBradleyFilter.Source = BitmapToImageSource(ImageFilters.GetImage());
+                imageBradleyFilter.Source = BitmapToImageSource(ImageFilters.ApplyBradleysFilter());
             }
         }
 
