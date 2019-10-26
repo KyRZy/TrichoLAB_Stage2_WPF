@@ -7,6 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
     <Grid>
-        
+        <Grid Height="440" VerticalAlignment="Top" Width="1260">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="imageOriginal" Height="350" Margin="0" Width="350"/>
+            <Image x:Name="imageBradleyFilter" Height="350" Margin="0" Width="350" Grid.Column="1"/>
+            <Image x:Name="imageGaussFilter" Height="350" Margin="0" Width="350" Grid.Column="2"/>
+        </Grid>
+        <Button x:Name="ButtonLoadImage" Content="Wczytaj obraz" HorizontalAlignment="Left" Margin="36,445,0,0" VerticalAlignment="Top" Width="90" Click="ButtonLoadImage_Click"/>
     </Grid>
 </Window>
