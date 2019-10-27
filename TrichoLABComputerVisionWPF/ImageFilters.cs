@@ -48,7 +48,7 @@ namespace TrichoLABComputerVisionWPF
             }
         }*/
 
-        public Bitmap ApplyBradleysFilter()
+        public Bitmap ApplyBradleysFilter(double slider_s, double slider_t)
         {
             int width = grayScaledOriginal.GetLength(0);
             int height = grayScaledOriginal.GetLength(1);
@@ -56,8 +56,8 @@ namespace TrichoLABComputerVisionWPF
             int[,] intImg = new int[width, height];
             Bitmap output = new Bitmap(width, height);
 
-            int s = width / 8;
-            int t = 15;
+            int s = (int) (width * slider_s / 100.0);
+            int t = (int) slider_t;
 
             for (int i = 0; i < width; i++)
             {

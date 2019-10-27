@@ -5,18 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrichoLABComputerVisionWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="MainWindow" Height="720" Width="1280" ResizeMode="NoResize" ShowInTaskbar="False">
     <Grid>
-        <Grid Height="440" VerticalAlignment="Top" Width="1260">
+        <Grid Height="440" Width="1260" VerticalAlignment="Top" Margin="7,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <Label x:Name="label" Content="Oryginalny obraz:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="35,15,0,0" Height="29"/>
+            <Rectangle Fill="#FFC3C3C3" Height="350" Stroke="Black" Width="350"/>
+            <Rectangle Fill="#FFC3C3C3" Height="350" Stroke="Black" Width="350" Margin="35,45" Grid.Column="1"/>
+            <Rectangle Fill="#FFC3C3C3" Height="350" Stroke="Black" Width="350" Margin="35,45" Grid.Column="2"/>
             <Image x:Name="imageOriginal" Height="350" Margin="0" Width="350"/>
             <Image x:Name="imageBradleyFilter" Height="350" Margin="0" Width="350" Grid.Column="1"/>
             <Image x:Name="imageGaussFilter" Height="350" Margin="0" Width="350" Grid.Column="2"/>
+            <Label x:Name="label_Copy" Content="Obraz po aplikacji filtru Bradley'a:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="35,15,0,0" Height="29" Grid.Column="1"/>
+            <Label x:Name="label_Copy1" Content="Obraz po aplikacji filtru Gaussa:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="35,15,0,0" Height="29" Grid.Column="2"/>
         </Grid>
-        <Button x:Name="ButtonLoadImage" Content="Wczytaj obraz" HorizontalAlignment="Left" Margin="36,445,0,0" VerticalAlignment="Top" Width="90" Click="ButtonLoadImage_Click"/>
+        <Button x:Name="ButtonLoadImage" Content="Wczytaj obraz" HorizontalAlignment="Left" Margin="44,440,0,0" VerticalAlignment="Top" Width="90" Click="ButtonLoadImage_Click"/>
+        <Label x:Name="LabelBradley_s" Content="s: 15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="463,435,0,0" Width="47" Height="28"/>
+        <Slider x:Name="SliderBradley_s" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="510,440,0,0" Width="300" Maximum="100" Value="15" ValueChanged="SliderBradley_s_ValueChanged" IsSnapToTickEnabled="True"/>
+        <Label x:Name="LabelBradley_t" Content="t: 15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="463,469,0,0" Width="47" Height="28"/>
+        <Slider x:Name="SliderBradley_t" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="510,474,0,0" Width="300" Maximum="100" Value="15" ValueChanged="SliderBradley_t_ValueChanged" IsSnapToTickEnabled="True"/>
+        <Button x:Name="ButtonRefreshBradleyFilter" Content="Odśwież podgląd" HorizontalAlignment="Left" Margin="463,510,0,0" VerticalAlignment="Top" Width="114" Click="ButtonRefreshBradleyFilter_Click"/>
     </Grid>
 </Window>

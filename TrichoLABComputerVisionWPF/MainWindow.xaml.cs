@@ -39,7 +39,7 @@ namespace TrichoLABComputerVisionWPF
                 Uri fileUri = new Uri(openFileDialog.FileName);
                 imageOriginal.Source = new BitmapImage(fileUri);
 
-                imageBradleyFilter.Source = BitmapToImageSource(ImageFilters.ApplyBradleysFilter());
+                imageBradleyFilter.Source = BitmapToImageSource(ImageFilters.ApplyBradleysFilter(SliderBradley_s.Value, SliderBradley_t.Value));
 
                 imageGaussFilter.Source = BitmapToImageSource(ImageFilters.ApplyGaussFilter());
             }
@@ -59,6 +59,21 @@ namespace TrichoLABComputerVisionWPF
 
                 return bitmapimage;
             }
+        }
+
+        private void SliderBradley_s_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            LabelBradley_s.Content = string.Format("s: {0}%", SliderBradley_s.Value);
+        }
+
+        private void SliderBradley_t_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            LabelBradley_t.Content = string.Format("t: {0}%", SliderBradley_t.Value);
+        }
+
+        private void ButtonRefreshBradleyFilter_Click(object sender, RoutedEventArgs e)
+        {
+            imageBradleyFilter.Source = BitmapToImageSource(ImageFilters.ApplyBradleysFilter(SliderBradley_s.Value, SliderBradley_t.Value));
         }
     }
 }
