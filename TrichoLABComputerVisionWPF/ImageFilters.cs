@@ -100,33 +100,12 @@ namespace TrichoLABComputerVisionWPF
             return output;
         }
 
-        public Bitmap ApplyGaussFilter()
+        public Bitmap ApplyGaussFilter(double[,] kernel)
         {
             int width = original.Width;
             int height = original.Height;
 
             Bitmap output = new Bitmap(width, height);
-
-            double[,] kernel = new double[3, 3];
-            //kernel[0, 0] = 0.0;
-            //kernel[0, 1] = 0.2;
-            //kernel[0, 2] = 0.0;
-            //kernel[1, 0] = 0.2;
-            //kernel[1, 1] = 0.2;
-            //kernel[1, 2] = 0.2;
-            //kernel[2, 0] = 0.0;
-            //kernel[2, 1] = 0.2;
-            //kernel[2, 2] = 0.0;
-
-            kernel[0, 0] = 1.0;
-            kernel[0, 1] = 2.0;
-            kernel[0, 2] = 1.0;
-            kernel[1, 0] = 2.0;
-            kernel[1, 1] = 4.0;
-            kernel[1, 2] = 2.0;
-            kernel[2, 0] = 1.0;
-            kernel[2, 1] = 2.0;
-            kernel[2, 2] = 1.0;
 
             double weight_sum = 0.0;
 
