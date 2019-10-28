@@ -43,24 +43,46 @@ namespace TrichoLABComputerVisionWPF
 
                 imageBradleyFilter.Source = BitmapToImageSource(ImageFilters.ApplyBradleysFilter(SliderBradley_s.Value, SliderBradley_t.Value));
 
-                kernelValidation();
+                KernelValidation();
                 imageGaussFilter.Source = BitmapToImageSource(ImageFilters.ApplyGaussFilter(kernel));
+
+                SliderBradley_s.IsEnabled = true;
+                SliderBradley_t.IsEnabled = true;
+                ButtonRefreshBradleyFilter.IsEnabled = true;
+                ButtonSaveBradleyToFile.IsEnabled = true;
+
+                ButtonLoadKernel.IsEnabled = true;
+                ButtonSaveKernel.IsEnabled = true;
+                ButtonRefreshGaussFilter.IsEnabled = true;
+                ButtonSaveGaussToFile.IsEnabled = true;
+
+                TextBoxGauss00.IsEnabled = true;
+                TextBoxGauss01.IsEnabled = true;
+                TextBoxGauss02.IsEnabled = true;
+                TextBoxGauss10.IsEnabled = true;
+                TextBoxGauss11.IsEnabled = true;
+                TextBoxGauss12.IsEnabled = true;
+                TextBoxGauss20.IsEnabled = true;
+                TextBoxGauss21.IsEnabled = true;
+                TextBoxGauss22.IsEnabled = true;
+
             }
         }
 
-        private void kernelValidation()
+        private void KernelValidation()
         {
             double k00, k01, k02, k10, k11, k12, k20, k21, k22;
             if (double.TryParse(TextBoxGauss00.Text, out k00) &&
-                double.TryParse(TextBoxGauss00.Text, out k01) &&
-                double.TryParse(TextBoxGauss00.Text, out k02) &&
-                double.TryParse(TextBoxGauss00.Text, out k10) &&
-                double.TryParse(TextBoxGauss00.Text, out k11) &&
-                double.TryParse(TextBoxGauss00.Text, out k12) &&
-                double.TryParse(TextBoxGauss00.Text, out k20) &&
-                double.TryParse(TextBoxGauss00.Text, out k21) &&
-                double.TryParse(TextBoxGauss00.Text, out k22))
+                double.TryParse(TextBoxGauss01.Text, out k01) &&
+                double.TryParse(TextBoxGauss02.Text, out k02) &&
+                double.TryParse(TextBoxGauss10.Text, out k10) &&
+                double.TryParse(TextBoxGauss11.Text, out k11) &&
+                double.TryParse(TextBoxGauss12.Text, out k12) &&
+                double.TryParse(TextBoxGauss20.Text, out k20) &&
+                double.TryParse(TextBoxGauss21.Text, out k21) &&
+                double.TryParse(TextBoxGauss22.Text, out k22))
             {
+                
                 kernel[0, 0] = k00;
                 kernel[0, 1] = k01;
                 kernel[0, 2] = k02;
@@ -73,6 +95,8 @@ namespace TrichoLABComputerVisionWPF
             } 
             else
             {
+                MessageBox.Show("Podany kernel powinien składać się z liczb rzeczywistych.\n\nZa moment zostaną przywrócone domyślne wartości kernela.",);
+
                 kernel[0, 0] = 0.0;
                 kernel[0, 1] = 0.2;
                 kernel[0, 2] = 0.0;
@@ -82,6 +106,16 @@ namespace TrichoLABComputerVisionWPF
                 kernel[2, 0] = 0.0;
                 kernel[2, 1] = 0.2;
                 kernel[2, 2] = 0.0;
+
+                TextBoxGauss00.Text = kernel[0, 0].ToString();
+                TextBoxGauss01.Text = kernel[0, 1].ToString();
+                TextBoxGauss02.Text = kernel[0, 2].ToString();
+                TextBoxGauss10.Text = kernel[1, 0].ToString();
+                TextBoxGauss11.Text = kernel[1, 1].ToString();
+                TextBoxGauss12.Text = kernel[1, 2].ToString();
+                TextBoxGauss20.Text = kernel[2, 0].ToString();
+                TextBoxGauss21.Text = kernel[2, 1].ToString();
+                TextBoxGauss22.Text = kernel[2, 2].ToString();
             }
         }
 
@@ -124,7 +158,7 @@ namespace TrichoLABComputerVisionWPF
 
         private void ButtonRefreshGaussFilter_Click(object sender, RoutedEventArgs e)
         {
-            kernelValidation();
+            KernelValidation();
             imageGaussFilter.Source = BitmapToImageSource(ImageFilters.ApplyGaussFilter(kernel));
         }
 
@@ -136,7 +170,7 @@ namespace TrichoLABComputerVisionWPF
 
             if (dlg.ShowDialog() == true)
             {
-                kernelValidation();
+                KernelValidation();
                 string output = string.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8}", kernel[0, 0], kernel[0, 1], kernel[0, 1], kernel[1, 0], kernel[1, 1], kernel[1, 2], kernel[2, 0], kernel[2, 1], kernel[2, 2]);
                 File.WriteAllText(dlg.FileName, output);
             }
