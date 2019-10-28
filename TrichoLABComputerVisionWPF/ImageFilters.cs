@@ -30,24 +30,6 @@ namespace TrichoLABComputerVisionWPF
             grayScaledOriginal = result;
         }
 
-        /*public void GetGrayScaledImage()
-        {
-            int width = grayScaledOriginal.GetLength(0);
-            int height = grayScaledOriginal.GetLength(1);
-
-            Bitmap output = new Bitmap(width, height);
-
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
-                {
-                    int colorValue = grayScaledOriginal[i, j];
-                    Color color = Color.FromArgb(colorValue, colorValue, colorValue);
-                    output.SetPixel(i, j, color);
-                }
-            }
-        }*/
-
         public Bitmap ApplyBradleysFilter(double slider_s, double slider_t)
         {
             int width = grayScaledOriginal.GetLength(0);

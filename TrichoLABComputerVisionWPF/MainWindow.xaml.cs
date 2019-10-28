@@ -26,6 +26,9 @@ namespace TrichoLABComputerVisionWPF
     {
         private ImageFilters ImageFilters = new ImageFilters();
         double[,] kernel = new double[3, 3];
+
+        Bitmap BradleysImage, GaussImage;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,10 +44,12 @@ namespace TrichoLABComputerVisionWPF
                 Uri fileUri = new Uri(openFileDialog.FileName);
                 imageOriginal.Source = new BitmapImage(fileUri);
 
-                imageBradleyFilter.Source = BitmapToImageSource(ImageFilters.ApplyBradleysFilter(SliderBradley_s.Value, SliderBradley_t.Value));
+                BradleysImage = ImageFilters.ApplyBradleysFilter(SliderBradley_s.Value, SliderBradley_t.Value);
+                imageBradleyFilter.Source =  BitmapToImageSource(BradleysImage);
 
                 KernelValidation();
-                imageGaussFilter.Source = BitmapToImageSource(ImageFilters.ApplyGaussFilter(kernel));
+                GaussImage = ImageFilters.ApplyGaussFilter(kernel);
+                imageGaussFilter.Source = BitmapToImageSource(GaussImage);
 
                 SliderBradley_s.IsEnabled = true;
                 SliderBradley_t.IsEnabled = true;
@@ -95,7 +100,7 @@ namespace TrichoLABComputerVisionWPF
             } 
             else
             {
-                MessageBox.Show("Podany kernel powinien składać się z liczb rzeczywistych.\n\nZa moment zostaną przywrócone domyślne wartości kernela.",);
+                MessageBox.Show("Podany kernel powinien składać się z liczb rzeczywistych.\n\nZa moment zostaną przywrócone domyślne wartości kernela.");
 
                 kernel[0, 0] = 0.0;
                 kernel[0, 1] = 0.2;
@@ -147,7 +152,8 @@ namespace TrichoLABComputerVisionWPF
 
         private void ButtonRefreshBradleyFilter_Click(object sender, RoutedEventArgs e)
         {
-            imageBradleyFilter.Source = BitmapToImageSource(ImageFilters.ApplyBradleysFilter(SliderBradley_s.Value, SliderBradley_t.Value));
+            BradleysImage = ImageFilters.ApplyBradleysFilter(SliderBradley_s.Value, SliderBradley_t.Value);
+            imageBradleyFilter.Source = BitmapToImageSource(BradleysImage);
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -159,7 +165,8 @@ namespace TrichoLABComputerVisionWPF
         private void ButtonRefreshGaussFilter_Click(object sender, RoutedEventArgs e)
         {
             KernelValidation();
-            imageGaussFilter.Source = BitmapToImageSource(ImageFilters.ApplyGaussFilter(kernel));
+            GaussImage = ImageFilters.ApplyGaussFilter(kernel);
+            imageGaussFilter.Source = BitmapToImageSource(GaussImage);
         }
 
         private void ButtonSaveKernel_Click(object sender, RoutedEventArgs e)
@@ -175,5 +182,57 @@ namespace TrichoLABComputerVisionWPF
                 File.WriteAllText(dlg.FileName, output);
             }
         }
+
+        private void ButtonLoadKernel_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string text = File.ReadAllText(openFileDialog.FileName);
+                string[] KernelValues = text.Split();
+
+                if(KernelValues.Length != 9)
+                {
+                    return;
+                }
+
+                TextBoxGauss00.Text = KernelValues[0];
+                TextBoxGauss01.Text = KernelValues[1];
+                TextBoxGauss02.Text = KernelValues[2];
+                TextBoxGauss10.Text = KernelValues[3];
+                TextBoxGauss11.Text = KernelValues[4];
+                TextBoxGauss12.Text = KernelValues[5];
+                TextBoxGauss20.Text = KernelValues[6];
+                TextBoxGauss21.Text = KernelValues[7];
+                TextBoxGauss22.Text = KernelValues[8];
+
+            }                
+        }
+
+        private void ButtonSaveBradleyImage_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.DefaultExt = ".png";
+            dlg.Filter = "PNG (.png)|*.png";
+
+            if (dlg.ShowDialog() == true)
+            { 
+                BradleysImage.Save(dlg.FileName);
+            }
+        }
+
+        private void ButtonSaveGaussImage_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.DefaultExt = ".png";
+            dlg.Filter = "PNG (.png)|*.png";
+
+            if (dlg.ShowDialog() == true)
+            {
+                GaussImage.Save(dlg.FileName);
+            }
+        }
+
+
     }
 }

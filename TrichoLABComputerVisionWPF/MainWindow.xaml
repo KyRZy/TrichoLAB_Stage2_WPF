@@ -39,9 +39,9 @@
         <TextBox x:Name="TextBoxGauss21" Text="0,2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1132,510,0,0" Width="40" MaxLines="1" TextAlignment="Right" IsEnabled="False"/>
         <TextBox x:Name="TextBoxGauss22" Text="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1182,510,0,0" Width="40" MaxLines="1" TextAlignment="Right" IsEnabled="False"/>
         <Button x:Name="ButtonSaveKernel" Content="Zapisz kernel do pliku" HorizontalAlignment="Left" Margin="883,450,0,0" VerticalAlignment="Top" Width="130" Click="ButtonSaveKernel_Click" IsEnabled="False"/>
-        <Button x:Name="ButtonLoadKernel" Content="Wczytaj kernel z pliku" HorizontalAlignment="Left" Margin="883,480,0,0" VerticalAlignment="Top" Width="130" IsEnabled="False"/>
+        <Button x:Name="ButtonLoadKernel" Content="Wczytaj kernel z pliku" HorizontalAlignment="Left" Margin="883,480,0,0" VerticalAlignment="Top" Width="130" IsEnabled="False" Click="ButtonLoadKernel_Click"/>
         <Button x:Name="ButtonRefreshGaussFilter" Content="Odśwież podgląd" HorizontalAlignment="Left" Margin="883,510,0,0" VerticalAlignment="Top" Width="130" Click="ButtonRefreshGaussFilter_Click" IsEnabled="False"/>
-        <Button x:Name="ButtonSaveBradleyToFile" Content="Zapisz obraz do pliku" HorizontalAlignment="Left" Margin="463,541,0,0" VerticalAlignment="Top" Width="130" Click="ButtonLoadImage_Click" IsEnabled="False"/>
-        <Button x:Name="ButtonSaveGaussToFile" Content="Zapisz obraz do pliku" HorizontalAlignment="Left" Margin="883,541,0,0" VerticalAlignment="Top" Width="130" Click="ButtonLoadImage_Click" IsEnabled="False"/>
+        <Button x:Name="ButtonSaveBradleyToFile" Content="Zapisz obraz do pliku" HorizontalAlignment="Left" Margin="463,541,0,0" VerticalAlignment="Top" Width="130" Click="ButtonSaveBradleyImage_Click" IsEnabled="False"/>
+        <Button x:Name="ButtonSaveGaussToFile" Content="Zapisz obraz do pliku" HorizontalAlignment="Left" Margin="883,541,0,0" VerticalAlignment="Top" Width="130" Click="ButtonSaveGaussImage_Click" IsEnabled="False"/>
     </Grid>
 </Window>
